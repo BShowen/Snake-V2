@@ -1,5 +1,6 @@
 import { directionMap } from "./directionMap";
 import { opposite } from "./opposite";
+import { emitter } from "../emitter";
 
 export function Snake(gameBoard) {
   const body = [];
@@ -11,6 +12,11 @@ export function Snake(gameBoard) {
   const moveQueue = []; // ===> ["up", "left", "down", ...etc]
   // let grow = false;
   let currentDirection = "idle";
+
+  emitter.on("up", () => setDirection("up"));
+  emitter.on("down", () => setDirection("down"));
+  emitter.on("left", () => setDirection("left"));
+  emitter.on("right", () => setDirection("right"));
 
   function _isBodyCoord([x, y]) {
     return body.some((coordinate) => {

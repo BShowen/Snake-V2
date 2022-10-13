@@ -7,7 +7,7 @@ import { snakeSpeed } from "./snakeSpeed";
 import { emitter } from "../emitter";
 
 export function Game() {
-  let isPaused;
+  this.isPaused = false;
   let interval;
   const speed = snakeSpeed();
   let travelThroughWalls = false;
@@ -37,18 +37,20 @@ export function Game() {
 
   const _toggle = () => {
     // eslint-disable-next-line default-case
-    switch (isPaused) {
+    switch (this.isPaused) {
       case true:
         interval = setInterval(_draw, speed.current());
-        isPaused = false;
+        this.isPaused = false;
         break;
       case false:
         clearInterval(interval);
         interval = undefined;
-        isPaused = true;
+        this.isPaused = true;
         break;
     }
   };
+
+  emitter.on("play-pause", _toggle);
 
   const _draw = () => {
     const portalCoords = usePortals ? portals : [[], []];
@@ -67,25 +69,27 @@ export function Game() {
 
   const _setSnakeDirection = (direction) => {
     // Can change direction only when game is not paused.
-    if (isPaused) return;
+    if (this.isPaused) return;
     snake.setDirection(direction);
   };
 
-  document.addEventListener("keydown", (e) => {
+  const keyDownHandler = (e) => {
     // You can pause the game ONLY once the game has begun.
-    if (e.code === "Enter" && isPaused !== undefined) {
+    if (e.code === "Enter" && this.isPaused !== undefined) {
       _toggle();
       return;
     }
 
     const [isValid, keyDown] = isArrowKey(e.key);
     if (isValid) {
-      // isPaused should longer be undefined because the game has started.
-      if (isPaused === undefined) isPaused = false;
+      // this.isPaused should longer be undefined because the game has started.
+      if (this.isPaused === undefined) this.isPaused = false;
 
       _setSnakeDirection(keyDown);
     }
-  });
+  };
+
+  document.addEventListener("keydown", keyDownHandler.bind(this));
 
   return { start };
 }
