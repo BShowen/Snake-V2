@@ -19,11 +19,11 @@ export function NumberInput({ type }) {
 
   return (
     <ButtonGroup size="sm">
-      <Button variant="secondary" onClick={decrement}>
+      <Button variant="primary" onClick={decrement}>
         -
       </Button>
-      <Button variant="secondary">{count}</Button>
-      <Button variant="secondary" onClick={increment}>
+      <Button variant="primary">{count}</Button>
+      <Button variant="primary" onClick={increment}>
         +
       </Button>
     </ButtonGroup>

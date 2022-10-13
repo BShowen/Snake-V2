@@ -1,16 +1,11 @@
-import { Container } from "react-bootstrap";
 import { Menu } from "./ui_components/Menu";
-import { Game } from "./snake/Game";
+// import { Game } from "./snake/Game";
 import "./global.css";
 
 function App() {
-  return (
-    <Container className="d-flex flex-sm-column flex-lg-row flex-no-wrap">
-      <Menu />
-    </Container>
-  );
+  return <Menu />;
 }
 
-const game = new Game();
-game.start();
+// const game = new Game();
+// game.start();
 export default App;
