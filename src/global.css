@@ -1,0 +1,16 @@
+@font-face {
+  font-family: Comforta-Regular;
+  src: url(./fonts/Comfortaa/static/Comfortaa-Regular.ttf);
+}
+
+p {
+  font-family: Comforta-Regular;
+}
+
+label {
+  font-size: 1.5rem;
+}
+
+.form-switch {
+  transform: scale(1.5) translateX(12px) translateY(-2px);
+}

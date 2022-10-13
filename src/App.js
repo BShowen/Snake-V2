@@ -1,6 +1,7 @@
 import { Container } from "react-bootstrap";
 import { Menu } from "./ui_components/Menu";
 import { Game } from "./snake/Game";
+import "./global.css";
 
 function App() {
   return (
