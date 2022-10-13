@@ -1,11 +1,14 @@
-export function randomCoordinate() {
-  const randomInt = () => {
-    return Math.floor(Math.random() * 1000);
+export function randomCoordinate({ maxX, maxY }) {
+  const randomX = () => {
+    return Math.floor(Math.random() * maxX);
+  };
+  const randomY = () => {
+    return Math.floor(Math.random() * maxY);
   };
 
-  let x = randomInt();
+  let x = randomX();
   x -= x % 20;
-  let y = randomInt();
+  let y = randomY();
   y -= y % 20;
   return [x, y];
 }

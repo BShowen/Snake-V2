@@ -1,9 +1,13 @@
 import { directionMap } from "./directionMap";
 import { opposite } from "./opposite";
 
-export function Snake() {
-  const body = [[480, 480]];
-  let head = [480, 480];
+export function Snake(gameBoard) {
+  const body = [];
+  let head = [
+    gameBoard.width / 2 - ((gameBoard.width / 2) % 20),
+    gameBoard.height / 2 - ((gameBoard.height / 2) % 20),
+  ];
+  body.push(head);
   const moveQueue = []; // ===> ["up", "left", "down", ...etc]
   // let grow = false;
   let currentDirection = "idle";
@@ -49,8 +53,8 @@ export function Snake() {
 
     // Allow positive wrapping around the map.
     if (wrapping) {
-      nextX = (currentX + vMagnitude[0]) % 1000;
-      nextY = (currentY + vMagnitude[1]) % 1000;
+      nextX = (currentX + vMagnitude[0]) % gameBoard.width;
+      nextY = (currentY + vMagnitude[1]) % gameBoard.height;
     }
 
     if (portals) {
@@ -69,8 +73,8 @@ export function Snake() {
 
     // Allow negative wrapping around the map.
     if (wrapping) {
-      if (nextX < 0) nextX = 1000 - Math.abs(nextX);
-      if (nextY < 0) nextY = 1000 - Math.abs(nextY);
+      if (nextX < 0) nextX = gameBoard.width - Math.abs(nextX);
+      if (nextY < 0) nextY = gameBoard.height - Math.abs(nextY);
     }
 
     return [nextX, nextY];

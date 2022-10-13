@@ -1,6 +1,6 @@
 import { randomCoordinate } from "./randomCoordinate";
 import { emitter } from "../emitter";
-export function foodGenerator() {
+export function foodGenerator({ maxX, maxY }) {
   let count = 1;
   let cache = [];
 
@@ -10,7 +10,7 @@ export function foodGenerator() {
     }
 
     for (let i = cache.length; i < count; i++) {
-      cache.push(randomCoordinate());
+      cache.push(randomCoordinate({ maxX, maxY }));
     }
 
     return cache;

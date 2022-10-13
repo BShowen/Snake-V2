@@ -2,7 +2,7 @@ import { draw } from "./draw";
 import { Snake } from "./Snake";
 import { isArrowKey } from "./isArrowKey";
 import { foodGenerator } from "./foodGenerator";
-import { portals } from "./portals";
+import { portalGenerator } from "./portalGenerator";
 import { snakeSpeed } from "./snakeSpeed";
 import { emitter } from "../emitter";
 
@@ -11,9 +11,17 @@ export function Game() {
   let interval;
   const speed = snakeSpeed();
   let travelThroughWalls = false;
-  const snake = new Snake();
-  const food = foodGenerator();
+  const board = {
+    height: document.getElementById("snakeCanvas").height,
+    width: document.getElementById("snakeCanvas").width,
+  };
+  const portals = portalGenerator.getPortals({
+    maxX: board.width,
+    maxY: board.height,
+  });
+  const food = foodGenerator({ maxX: board.width, maxY: board.height });
   let usePortals = false;
+  const snake = new Snake(board);
 
   emitter.on("toggle-portals", () => {
     usePortals = !usePortals;
