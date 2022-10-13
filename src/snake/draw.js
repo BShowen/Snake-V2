@@ -1,22 +1,21 @@
 export const draw = (() => {
-  const _context = (() => {
-    const _canvas = document.createElement("canvas");
-    _canvas.setAttribute("width", "1000");
-    _canvas.setAttribute("height", "1000");
-    _canvas.setAttribute("style", "border: 1px solid black");
+  let _contextCache = null;
 
-    document.getElementById("snake-root").appendChild(_canvas);
-
-    const context = _canvas.getContext("2d");
-    return context;
-  })();
+  const _setContextCache = () => {
+    const canvas = document.getElementById("snakeCanvas");
+    if (canvas) {
+      _contextCache = canvas.getContext("2d");
+    }
+  };
 
   const _clear = function () {
-    _context.fillStyle = "white";
-    _context.fillRect(0, 0, 1000, 1000);
+    _contextCache.fillStyle = "white";
+    _contextCache.fillRect(0, 0, 1000, 1000);
   };
 
   const draw = function (...drawObjects) {
+    if (!_contextCache) _setContextCache();
+
     _clear();
     for (const drawObject of drawObjects) {
       const { coords, fillColor, travelThroughWalls } = drawObject;
@@ -31,10 +30,11 @@ export const draw = (() => {
         }
       }
 
+      // eslint-disable-next-line no-loop-func
       coords.forEach((coord) => {
         const [x, y] = coord;
-        _context.fillStyle = fillColor;
-        _context.fillRect(x, y, 20, 20);
+        _contextCache.fillStyle = fillColor;
+        _contextCache.fillRect(x, y, 20, 20);
       });
     }
   };

@@ -1,6 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
+import { Canvas } from "./Canvas";
+import { Game } from "./snake/Game";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -11,6 +13,16 @@ root.render(
   </React.StrictMode>
 );
 
+const snakeRoot = ReactDOM.createRoot(document.getElementById("snake-root"));
+snakeRoot.render(
+  <React.StrictMode>
+    <Canvas />
+  </React.StrictMode>
+);
+
+window.onload = () => {
+  new Game().start();
+};
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
